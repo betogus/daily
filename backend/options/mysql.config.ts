@@ -1,4 +1,4 @@
-const options = {
+export const options: any = {
     client: "mysql2",
     connection: {
         host: "127.0.0.1",
@@ -7,6 +7,4 @@ const options = {
         database: "daily",
         port: 3307
     }
-}
-
-module.exports = options;
+};

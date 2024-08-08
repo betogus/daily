@@ -1,8 +1,8 @@
 import Common from "./Common";
 
 export default class Profile extends Common {
-    name?: string;
-    icon?: string;
+    private name?: string;
+    private icon?: string;
 
     constructor(
         name: string = "unnamed"
