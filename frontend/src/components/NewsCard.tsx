@@ -1,4 +1,4 @@
-import { News } from "@/models/New";
+import { News } from "@/models/News";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { Button } from "./ui/button";
@@ -50,10 +50,10 @@ const NewsCard = ({ item }: Props) => {
           ))}
         </div>
         <div className="text-sm text-[#464c55] my-1">
-        {new Intl.DateTimeFormat("en-US", {
+        {/* {new Intl.DateTimeFormat("en-US", {
           month: "short",
           day: "numeric",
-        }).format(item.date)} · {item.readTime}m read time 
+        }).format(item.date)} */} · {item.readTime}m read time 
         </div>
         
         <div className="relative h-36"> 

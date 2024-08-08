@@ -1,5 +1,5 @@
 import NewsCard from "@/components/NewsCard";
-import { News } from "@/models/New"
+import { News } from "@/models/News"
 import NewsService from "@/services/NewsService";
 import { useEffect, useState } from "react"
 
@@ -11,7 +11,7 @@ export default function HomePage() {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const data = await NewsService.getNewsTest();
+                const data = await NewsService.getNews();
                 setNews(data);
             } catch (error) {
                 console.log('Error al cargar las noticias');

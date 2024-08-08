@@ -1,10 +1,11 @@
 import {newsMockList} from "@/mock/news";
-import { News } from "@/models/New";
-import axios from "axios";
+import { News } from "@/models/News";
+import { Post } from "@/models/Post";
+import axios, { AxiosResponse } from "axios";
 
 
 
-const BASE_URL = "https://api.example.com/news";
+const BASE_URL = "http://localhost:8080/news";
 
 class NewsService {
 
@@ -33,6 +34,15 @@ class NewsService {
         } catch (error) {
             console.error('Error al hacer la solicitud GET:', error);
             throw error; 
+        }
+    }
+
+    async postNews(post: Post): Promise<AxiosResponse<any> | undefined> {
+        try {
+            const response: AxiosResponse<any> = await axios.post(this.baseUrl, post);
+            return response;
+        } catch (error) {
+            console.error('Error al hacer la solicitud POST: ', error)
         }
     }
 

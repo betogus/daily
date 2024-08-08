@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-
 export default class Common {
     private id: string;
 
@@ -8,8 +7,11 @@ export default class Common {
         this.id = uuidv4();
     }
     
-    public get_id(): string {
+    public getId(): string {
         return this.id; 
     }
+    
+    public setId(value: string): void {
+        this.id = value;
+    }
 }
-
