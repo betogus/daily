@@ -1,5 +1,6 @@
 import {newsMockList} from "@/mock/news";
 import { News } from "@/models/News";
+import { NewsDetail } from "@/models/NewsDetail";
 import { Post } from "@/models/Post";
 import axios, { AxiosResponse } from "axios";
 
@@ -25,6 +26,15 @@ class NewsService {
         }
     }
     
+    async getNewsById(id: string): Promise<NewsDetail> {
+        try {
+            const response = await axios.get(this.baseUrl+`/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error al hacer la solicitud GET:', error);
+            throw error;
+        }
+    }
 
     async getNewsTest(): Promise<News[]> {
         try {

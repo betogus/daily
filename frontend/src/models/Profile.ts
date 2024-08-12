@@ -2,7 +2,7 @@ import React from 'react';
 
 
 export type Profile = {
-    id: number;
+    profile_id: string;
     name?: string;
     icon?: React.ReactNode;
 };
