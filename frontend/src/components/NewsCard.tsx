@@ -6,6 +6,7 @@ import { LuArrowBigUp } from "react-icons/lu";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaLink } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface Props {
   item: News;
@@ -19,7 +20,7 @@ const NewsCard = ({ item }: Props) => {
   );
 
   return (
-    <div
+    <Link to={`/posts/${item.news_id}`}
       className="w-72 h-96 rounded-xl flex p-4 flex-col justify-between"
       style={{ borderWidth: 2, borderColor: "#363738d4" }}
     >
@@ -50,19 +51,20 @@ const NewsCard = ({ item }: Props) => {
           ))}
         </div>
         <div className="text-sm text-[#464c55] my-1">
-        {/* {new Intl.DateTimeFormat("en-US", {
+          {/* {new Intl.DateTimeFormat("en-US", {
           month: "short",
           day: "numeric",
-        }).format(item.date)} */} · {item.readTime}m read time 
+        }).format(item.date)} */}{" "}
+          · {item.readTime}m read time
         </div>
-        
-        <div className="relative h-36"> 
-        <img
-          src={item.img}
-          alt="news"
-          className="absolute inset-0 w-full h-full object-cover rounded-2xl"
-        />
-      </div>
+
+        <div className="relative h-36">
+          <img
+            src={item.img}
+            alt="news"
+            className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+          />
+        </div>
         <div className="flex justify-between pt-2 items-center text-[#464c55] cursor-pointer">
           <div>
             <LuArrowBigUp size={25} className="hover:text-white" />
@@ -80,7 +82,7 @@ const NewsCard = ({ item }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

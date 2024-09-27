@@ -1,7 +1,7 @@
 import { Profile } from "./Profile";
 
 export type News = {
-    id: number;
+    news_id: string;
     profile: Profile;
     title: string;
     img: string;
