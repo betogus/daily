@@ -173,7 +173,7 @@ const SideBar = () => {
       className={isSideBarOpened ? "w-60  flex h-[calc(100vh-4rem)]" : "w-16 flex h-[calc(100vh-4rem)]"}
       style={{ transition: "width 0.3s ease" }}
     >
-      <div className="w-full flex flex-col" style={{borderRightWidth: 1, borderColor: "darkslategray"}}>
+      <div className="w-full flex flex-col pt-8" style={{borderRightWidth: 1, borderColor: "darkslategray"}}>
         {navListByCategory.map((category) => (
           <div key={category.id} className={category.name == "others" ? "mt-auto" : ""}>
             {category.name !== "feed" && category.name !== "others" && (
@@ -204,7 +204,7 @@ const SideBar = () => {
 
       <div>
         {isButtonVisible && (
-          <div className="fixed">
+          <div className="fixed pt-4">
             <Button
               variant={"secondary"}
               size={"xs"}
