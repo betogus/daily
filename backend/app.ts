@@ -3,17 +3,21 @@ import cors from 'cors';
 import session from "express-session";
 import newsRouter from "./routes/newsRoute";
 import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import {initializePassport } from './config/passport.config'
 
 const app = express();
 const port = 8080;
 const server = app.listen(port, () => console.log(`Server up on port ${port}`));
 
-const connection = mongoose.connect('mongodb://localhost:27017/backusers',
-{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
+const connection = mongoose.connect('mongodb://localhost:27017/backusers')
+    .then(() => {
+        console.log("Conectado a MongoDB");
+    })
+    .catch((err) => {
+        console.error("Error al conectar a MongoDB:", err);
+    });
 
 let baseSession = session({
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/backsessions'}),
@@ -33,4 +37,5 @@ app.use(cors());
 app.use('/news', newsRouter);
 
 
-export default server;
+
+
