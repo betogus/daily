@@ -5,14 +5,15 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useState } from "react";
 import SignUp2 from "./SignUp2";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  setIsLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const SignUp = ({ setIsLoginPage }: Props) => {
+
+const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [showSignUp2, setShowSignUp2] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +70,7 @@ const SignUp = ({ setIsLoginPage }: Props) => {
       <p className="w-full text-gray-400">
         Already using daily.dev?
         <a
-          onClick={() => setIsLoginPage(true)}
+          onClick={() => navigate("/login")}
           className="underline decoration-2 cursor-pointer text-white"
         >
           Log in
@@ -77,7 +78,7 @@ const SignUp = ({ setIsLoginPage }: Props) => {
       </p>
     </div>
   ) : (
-    <SignUp2 email={email} setIsLoginPage={setIsLoginPage} />
+    <SignUp2 email={email} />
   );
 };
 

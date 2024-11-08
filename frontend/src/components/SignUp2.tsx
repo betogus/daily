@@ -9,20 +9,29 @@ import {
   SelectValue,
 } from "./ui/select";
 import { ExperienceLevel } from "@/models/ExperienceLevel";
+import { User } from "@/models/User";
+import AuthService from "@/services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   email: string;
-  setIsLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SignUp2 = ({ email, setIsLoginPage }: Props) => {
+const SignUp2 = ({ email }: Props) => {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(e)
+    let user: User = {name, password, username, email}
+    const data = await AuthService.signup(user);
+    console.log(data)
   };
+
 
   return (
     <div className="w-1/5 text-center min-w-[350px] flex flex-col gap-4">
@@ -83,7 +92,7 @@ const SignUp2 = ({ email, setIsLoginPage }: Props) => {
       <p className="w-full text-gray-400">
         Already using daily.dev?
         <a
-          onClick={() => setIsLoginPage(true)}
+          onClick={() => navigate("/login")}
           className="underline decoration-2 cursor-pointer text-white"
         >
           Log in
