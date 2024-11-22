@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import session from "express-session";
 import newsRouter from "./routes/newsRoute";
+import authRouter from "./routes/authRoute";
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
@@ -25,17 +26,17 @@ let baseSession = session({
     resave: true,
     saveUninitialized: true
 })
-    
+
+app.use(baseSession)  
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(baseSession)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/news', newsRouter);
-
+app.use('/auth', authRouter)
 
 
 

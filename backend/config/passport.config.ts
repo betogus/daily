@@ -20,9 +20,7 @@ export const initializePassport = () => {
                         username,
                         password: createHash(password),
                         email: req.body.email,
-                        first_name: req.body.first_name,
-                        last_name: req.body.last_name,
-                        age: req.body.age,
+                        name: req.body.name
                     };
 
                     let result = await users.create(newUser);
@@ -46,15 +44,19 @@ export const initializePassport = () => {
 
     passport.use(
         "login",
-        new LocalStrategy(async (username: string, password: string, done) => {
-            try {
-                let user = await users.findOne({ username });
-                if (!user) return done(null, false);
-                if (!isValid(user, password)) return done(null, false);
-                return done(null, user);
-            } catch (err) {
-                done(err);
+        new LocalStrategy(
+            { usernameField: "email" }, 
+            async (email: string, password: string, done) => {
+                try {
+                    let user = await users.findOne({ email });
+                    if (!user) return done(null, false); 
+                    if (!isValid(user, password)) return done(null, false); 
+                    return done(null, user); 
+                } catch (err) {
+                    return done(err);
+                }
             }
-        })
+        )
     );
+    
 };
