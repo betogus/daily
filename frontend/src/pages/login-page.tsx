@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { PiGithubLogoFill } from "react-icons/pi";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 import { User } from "@/models/User";
 import AuthService from "@/services/AuthService";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "@/redux/slices/AuthSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/slices/AuthSlice";
+import { authThunk } from "@/redux/thunks/AuthThunk";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,13 +22,17 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    let user: User = { email, password };
-    const data = await AuthService.login(user);
-    if (data?.status == 200) {
-      dispatch(login())
-      navigate("/")
+    try {
+      const user: User = { email, password };
+      const result = await dispatch(authThunk(user)).unwrap();
+      console.log("Inicio de sesión exitoso:", result);
+      navigate('/');
+    } catch (error) {
+      console.error("Error en handleLogin:", error);
+      alert("Error al iniciar sesión. Por favor, verifica tus credenciales.");
     }
   };
+  
 
   return (
     <div className="w-full min-h-screen bg-[#0E1217] flex justify-center items-center text-center">
@@ -90,9 +94,9 @@ const Login = () => {
         <div className="w-full border-t border-gray-300"></div>
         <p className="w-full text-gray-400">
           Not a member yet?{" "}
-          <a className="underline decoration-2 cursor-pointer text-white">
+          <Link to={"/signup"} className="underline decoration-2 cursor-pointer text-white">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

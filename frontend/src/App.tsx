@@ -4,9 +4,9 @@ import HomePage from "./pages/home-page";
 import PostPage from "./pages/post-page";
 
 import SquadsCreatePage from "./pages/squads-create-page";
-import Login from "./components/Login";
+import Login from "./pages/login-page";
 import RouterLayout  from "./pages/router-layout";
-import SignUp from "./components/SignUp";
+import SignUp from "./pages/signup-page";
 
 function App() {
 

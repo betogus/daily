@@ -1,3 +1,4 @@
+import { authMethod } from "@/config";
 import { User } from "@/models/User";
 import axios, { AxiosResponse } from "axios";
 
@@ -27,6 +28,9 @@ class AuthService {
   }
 
   async signup(user: User): Promise<AxiosResponse<any> | undefined> {
+    if (authMethod == "FIREBASE") {
+      
+    }
     try {
       const response: AxiosResponse<any> = await axios.post(
         this.baseUrl + "/register",

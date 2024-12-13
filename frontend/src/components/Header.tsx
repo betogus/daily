@@ -4,13 +4,17 @@ import { Input } from "./ui/input";
 import { FaRegBell, FaUser } from "react-icons/fa";
 import { logout } from "@/redux/slices/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 
 const Header = () => {
+  const [, , remove] = useCookies()
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const handleLogout = () => {
     dispatch(logout())
+    remove('accessToken')
     navigate("/login")
   }
 

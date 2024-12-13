@@ -12,6 +12,7 @@ import { ExperienceLevel } from "@/models/ExperienceLevel";
 import { User } from "@/models/User";
 import AuthService from "@/services/AuthService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "./ui/use-toast";
 
 interface Props {
   email: string;
@@ -23,13 +24,28 @@ const SignUp2 = ({ email }: Props) => {
   const [username, setUsername] = useState<string>("");
 
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(e)
     let user: User = {name, password, username, email}
-    const data = await AuthService.signup(user);
-    console.log(data)
+    const res = await AuthService.signup(user);
+    if (res?.data?.status(409)) {
+      toast({
+        variant: "destructive",
+        title: res.data.message,
+      });
+    } else if (res?.data?.status(201)) {
+      toast({
+        title: res.data.message,
+      });
+      navigate("/login")
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+      });
+    }
+
   };
 
 
